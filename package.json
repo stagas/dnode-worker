@@ -1,0 +1,15 @@
+{ "name" : "dnode-worker"
+, "description" : "Stupid simple workers with DNode"
+, "version" : "0.0.1"
+, "homepage" : "https://github.com/stagas/dnode-worker"
+, "author" : "George Stagas <gstagas@gmail.com> (http://stagas.com/)"
+, "repository" :
+  { "type" : "git"
+  , "url" : "https://github.com/stagas/dnode-worker.git"
+  }
+, "dependencies": {
+    "dnode": ">=0.8.2"
+  }
+, "main": "./dnode-worker"
+, "engines" : { "node" : ">=0.4.11" }
+}
