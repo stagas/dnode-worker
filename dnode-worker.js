@@ -7,8 +7,15 @@ exports.Worker = function Worker (filename, cb) {
   // todo: should replace with child_process.fork when it's stable
   var worker = spawn('node', [ __dirname + '/dnode-worker-runner', filename ])
   worker.stdout.setEncoding('utf8')
+  worker.stderr.setEncoding('utf8')
   worker.stdout.once('data', function (data) {
     dnode.connect(data.split('\n')[0], cb)
+    worker.stdout.on('data', function (data) {
+      process.stdout.write(data)
+    })
+  })
+  worker.stderr.on('data', function (data) {
+    process.stderr.write(data)
   })
 }
 
