@@ -15,7 +15,7 @@ var Worker = require('dnode-worker');
 
 Worker({
   add: function (a, b, callback) {
-    callback(a / b);
+    callback(a + b);
   }
 }, function (worker, exit) {
   worker.add(1, 2, function (result) {
@@ -34,7 +34,7 @@ exports.multiply = function (a, b, callback) {
   callback(a * b)
 }
 
-exports.reallySlowTask = function (callback) {
+exports.aSlowTask = function (callback) {
   var array = []
   for (var i = 0; i < 70000; i++) {
     array = array.concat([i])
