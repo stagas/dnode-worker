@@ -20,6 +20,9 @@ Worker({
 }, function (worker, exit) {
   worker.add(1, 2, function (result) {
     console.log(result); // 3
+
+    // Exit the worker
+    exit(); // or worker.exit()
   });
 });
 
