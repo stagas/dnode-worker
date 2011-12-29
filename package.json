@@ -1,15 +1,25 @@
-{ "name" : "dnode-worker"
-, "description" : "Stupid simple workers with DNode"
-, "version" : "0.0.2"
-, "homepage" : "https://github.com/stagas/dnode-worker"
-, "author" : "George Stagas <gstagas@gmail.com> (http://stagas.com/)"
-, "repository" :
-  { "type" : "git"
-  , "url" : "https://github.com/stagas/dnode-worker.git"
+{
+  "name": "dnode-worker",
+  "description": "Stupid simple workers with DNode",
+  "version": "0.1.0",
+  "homepage": "https://github.com/stagas/dnode-worker",
+  "author": "George Stagas <gstagas@gmail.com> (http://stagas.com/)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stagas/dnode-worker.git"
+  },
+  "dependencies": {
+    "dnode": "~0.9.3",
+    "tosource": "~0.1.1"
+  },
+  "devDependencies": {
+    "tap": "~0.1.3"
+  },
+  "main": "./index.js",
+  "engines": {
+    "node": "~0.6.0"
+  },
+  "scripts": {
+    "test": "tap test/test.js"
   }
-, "dependencies": {
-    "dnode": ">=0.8.2"
-  }
-, "main": "./dnode-worker"
-, "engines" : { "node" : ">=0.4.11" }
 }

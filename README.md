@@ -6,9 +6,28 @@ Stupid simple workers for DNode
 
 `npm install dnode-worker`
 
-## Example usage
+## In two flavors:
 
-worker.js:
+### (simple) Passing an object (no scope retained, uses toSource and eval):
+
+```javascript
+var Worker = require('dnode-worker');
+
+Worker({
+  add: function (a, b, callback) {
+    callback(a / b);
+  }
+}, function (worker, exit) {
+  worker.add(1, 2, function (result) {
+    console.log(result); // 3
+  });
+});
+
+```
+
+### (hard) Using a module file:
+
+_simple-worker.js_
 
 ```javascript
 exports.multiply = function (a, b, callback) {
@@ -22,24 +41,27 @@ exports.reallySlowTask = function (callback) {
   }
   callback()
 }
+
 ```
 
-Your app.js:
+_app.js_
 
 ```javascript
-var Worker = require('./dnode-worker').Worker
+var Worker = require('dnode-worker');
 
-Worker(__dirname + '/simple-worker', function (worker) {
-  worker.multiply(5, 5, function (results) {
-    console.log('results:', results)
-  })
-  worker.reallySlowTask(function () {
-    console.log('done with the slow task')
-    worker.exit()
-  })
-})
+Worker.createWorker(__dirname + '/simple-worker', function (worker, exit) {
+  worker.multiply(5, 5, function (result) {
+    console.log(result); // 25
+  });
+  worker.aSlowTask(function () {
+    // Exit the worker
+    exit(); // or worker.exit()
+  });
+});
 
-setInterval(function () {
-  console.log('not blocking :)')
-}, 1000)
 ```
+
+## Licence
+
+MIT/X11
+
