@@ -30,3 +30,27 @@ test("Worker(object)", function (t) {
     })
   })
 })
+
+test("createWorker(filename) with error", function (t) {
+  t.plan(1)
+  Worker.createWorker(__dirname + '/simple-worker', function (worker, exit) {
+    worker.throwTask()
+  }).on('error', function (err) {
+    t.throws(err, "error received")
+    this.exit()
+  })
+})
+
+test("createWorker(object) with error", function (t) {
+  t.plan(1)
+  Worker.createWorker({
+    throwTask: function () {
+      throw new Error('Some error')
+    }
+  }, function (worker, exit) {
+    worker.throwTask()
+  }).on('error', function (err) {
+    t.throws(err, "error received")
+    this.exit()
+  })
+})

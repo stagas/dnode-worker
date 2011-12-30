@@ -9,3 +9,7 @@ exports.aSlowTask = function (callback) {
   }
   callback()
 }
+
+exports.throwTask = function (callback) {
+  throw new Error('Some error')
+}

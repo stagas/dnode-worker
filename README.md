@@ -64,6 +64,25 @@ Worker.createWorker(__dirname + '/simple-worker', function (worker, exit) {
 
 ```
 
+## Error handling:
+
+```javascript
+Worker.createWorker({
+  throwTask: function () {
+    throw new Error('Some error');
+  }
+}, function (worker, exit) {
+  worker.throwTask();
+}).on('error', function (err) { // Attach error listener
+  // Handle error
+  console.error(err.stack)
+
+  // Exit worker
+  this.exit();
+});
+
+```
+
 ## Licence
 
 MIT/X11
