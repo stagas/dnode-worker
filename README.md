@@ -6,9 +6,28 @@ Stupid simple workers for DNode
 
 `npm install dnode-worker`
 
-## In two flavors:
+## In three flavors!
 
-### (simple) Passing an object (no scope retained, uses toSource and eval):
+### Passing a function:
+
+```javascript
+Worker(function (remote, conn) {
+  var crypto = require('crypto');
+  this.hash = function (s, callback) {
+    callback(crypto.createHash('sha1').update(s).digest('hex'));
+  }
+}, function (worker) {
+  worker.hash('foo', function (result) {
+    // Do something with the result
+
+    // Exit worker
+    worker.exit();
+  });
+});
+
+```
+
+### Passing an object:
 
 ```javascript
 var Worker = require('dnode-worker');
@@ -21,14 +40,14 @@ Worker({
   worker.add(1, 2, function (result) {
     console.log(result); // 3
 
-    // Exit the worker
+    // Exit worker
     exit(); // or worker.exit()
   });
 });
 
 ```
 
-### (hard) Using a module file:
+### Using a module file:
 
 _simple-worker.js_
 
@@ -57,7 +76,7 @@ Worker.createWorker(__dirname + '/simple-worker', function (worker, exit) {
     console.log(result); // 25
   });
   worker.aSlowTask(function () {
-    // Exit the worker
+    // Exit worker
     exit(); // or worker.exit()
   });
 });

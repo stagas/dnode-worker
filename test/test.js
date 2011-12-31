@@ -31,6 +31,21 @@ test("Worker(object)", function (t) {
   })
 })
 
+test("Worker(function) and require", function (t) {
+  t.plan(1)
+  Worker(function (remote, conn) {
+    var crypto = require('crypto')
+    this.hash = function (s, callback) {
+      callback(crypto.createHash('sha1').update(s).digest('hex'))
+    }
+  }, function (worker) {
+    worker.hash('foo', function (result) {
+      t.equals('0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33', result, "Hash ok")
+      worker.exit()
+    })
+  })
+})
+
 test("createWorker(filename) with error", function (t) {
   t.plan(1)
   Worker.createWorker(__dirname + '/simple-worker', function (worker, exit) {
