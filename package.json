@@ -1,7 +1,7 @@
 {
   "name": "dnode-worker",
   "description": "Stupid simple workers with DNode",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/stagas/dnode-worker",
   "author": "George Stagas <gstagas@gmail.com> (http://stagas.com/)",
   "repository": {
