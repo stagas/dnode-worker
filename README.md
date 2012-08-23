@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/stagas/dnode-worker.png)](http://travis-ci.org/stagas/dnode-worker)
 # dnode-worker
 
 Stupid simple workers for DNode
